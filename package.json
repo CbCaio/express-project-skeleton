@@ -1,0 +1,28 @@
+{
+  "name": "express-project-skeleton",
+  "version": "0.0.1",
+  "description": "Express-based project skeleton ",
+  "main": "src/sever.js",
+  "dependencies": {
+    "express": "^4.15.4",
+    "nodemon": "^1.11.0",
+    "pm2": "^2.6.1",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "jest": "^20.0.4"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CbCaio/express-project-skeleton.git"
+  },
+  "author": "Caio Ceccon Bolognani",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CbCaio/express-project-skeleton/issues"
+  },
+  "homepage": "https://github.com/CbCaio/express-project-skeleton#readme"
+}

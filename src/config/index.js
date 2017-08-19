@@ -1,6 +1,7 @@
-const environmentVariables = require('./environmentVaribles');
+const environmentVariables = require('./environmentVariables');
+const logger = require('./logger');
 
-module.exports = 
-  Object.assign({},
-   environmentVariables
-  );
+module.exports = {
+  env: environmentVariables,
+  logger,
+};

@@ -4,7 +4,7 @@ const healthCheckRouter = require('./routers/healthCheck');
 
 const app = new Express();
 
-app.set('json spaces', 4);
+app.set('json spaces', 2);
 
 // --- VALIDATOR MIDDLEWARE ---
 

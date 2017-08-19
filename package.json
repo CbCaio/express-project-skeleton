@@ -2,10 +2,12 @@
   "name": "express-project-skeleton",
   "version": "0.0.1",
   "description": "Express-based project skeleton ",
-  "main": "src/sever.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "test": "jest"
+    "start": "pm2 start src/server.js -i max --name=skeleton-express-project",
+    "pm2-monit": "pm2 monit",
+    "test": "jest",
+    "local": "nodemon -V -- src/server.js"
   },
   "dependencies": {
     "express": "^4.15.4",

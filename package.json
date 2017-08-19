@@ -4,10 +4,11 @@
   "description": "Express-based project skeleton ",
   "main": "src/server.js",
   "scripts": {
-    "start": "pm2 start src/server.js -i max --name=skeleton-express-project",
+    "start": "NODE_ENV=production pm2 start src/server.js -i max --name=skeleton-express-project",
+    "local": "nodemon -- src/server.js",
     "pm2-monit": "pm2 monit",
-    "test": "jest",
-    "local": "nodemon -V -- src/server.js"
+    "pm2-kill": "pm2 kill",
+    "test": "jest"
   },
   "dependencies": {
     "express": "^4.15.4",

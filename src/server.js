@@ -1,4 +1,5 @@
 const app = require('./app');
+const config = require('./config');
 
-app.listen(9000, () => console.log('Server started'));
+app.listen(config.port, () => console.log(`${config.appName} server's started at ${config.port}`));
 

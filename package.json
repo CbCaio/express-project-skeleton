@@ -3,17 +3,18 @@
   "version": "0.0.1",
   "description": "Express-based project skeleton ",
   "main": "src/sever.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jest"
+  },
   "dependencies": {
     "express": "^4.15.4",
-    "nodemon": "^1.11.0",
     "pm2": "^2.6.1",
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "jest": "^20.0.4"
-  },
-  "scripts": {
-    "test": "jest"
+    "jest": "^20.0.4",
+    "nodemon": "^1.11.0"
   },
   "repository": {
     "type": "git",

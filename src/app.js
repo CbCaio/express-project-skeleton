@@ -1,4 +1,5 @@
 const Express = require('express');
+const config = require('./config');
 
 const RateLimit = require('express-rate-limit');
 
@@ -14,6 +15,10 @@ var limiter = new RateLimit({
 
  app.use(limiter);
 
+// --- LOGGER ---
+app.use(config.logger.loggerRouter);
+// ------
+
 app.set('json spaces', 2);
 
 // --- VALIDATOR MIDDLEWARE ---
@@ -28,8 +33,15 @@ app.set('json spaces', 2);
 
 app.use(healthCheckRouter);
 
+// ------
+
+// --- LOGGER ---
+app.use(config.logger.errorLoggerRouter);
+// ------
+
 // --- APPLICATION ERROR HANDLER ---
 
 // ------
+
 
 module.exports = app;

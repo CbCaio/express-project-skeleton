@@ -1,5 +1,6 @@
 const Express = require('express');
 const config = require('./config');
+const bodyParser = require('body-parser');
 
 const healthCheckRouter = require('./routers/healthCheck');
 
@@ -10,6 +11,8 @@ app.use(config.logger.loggerRouter);
 // ------
 
 app.set('json spaces', 2);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // --- VALIDATOR MIDDLEWARE ---
 

@@ -6,6 +6,7 @@ function encodeToken(word) {
     exp: moment().add(1, 'days').unix(),
     iat: moment().unix(),
     sub: word,
+    isExpired: false,
   };
   return jwt.encode(playload, 'secret key');
 }
@@ -14,7 +15,9 @@ function decodeToken(token) {
   const payload = jwt.decode(token, 'secret key');
   const now = moment().unix();
   // check if the token has expired
-  if (now > payload.exp) return;
+  if (now > payload.exp) {
+    payload.isExpired = true;
+  }
   return payload;
 }
 
@@ -25,9 +28,20 @@ function ensureAuthenticated(req, res) {
   const header = req.headers.authorization.split(' ');
   const token = header[1];
 
-  const payload = decodeToken(token);
-  if (payload.sub) return true;
-  return false;
+  let payload;
+  try {
+    payload = decodeToken(token);
+  } catch (error) {
+    res.status(500).json({
+      status: 'Invalid token!',
+    });
+  }
+  if (payload.isExpired) {
+    res.status(500).json({
+      status: ' Expired token!',
+    });
+  }
+  return true;
 }
 
 module.exports = {

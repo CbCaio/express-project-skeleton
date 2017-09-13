@@ -5,7 +5,7 @@ const router = new Router();
 
 router.get('/login', (req, res) => {
   const token = auth.encodeToken('test');
-  res.status(200).send(token);
+  res.header('authorization', token).send('ok!');
 });
 
 module.exports = router;

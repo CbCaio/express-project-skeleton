@@ -1,7 +1,6 @@
 const { Router } = require('express');
 const uploadHandler = require('../middleware/uploadHandler');
-const importationService = require('../services/importationService')
-;
+const importationService = require('../services/importationService');
 
 const router = new Router();
 

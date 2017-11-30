@@ -1,9 +1,7 @@
 
 const { env } = require('./config');
-const mongoose = require('mongoose');
+const { mongoose } = require('./db/mongoose');
 
-mongoose.createConnection(env.URL_MONGO);
-mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
 mongoose.connection.on('error', (err) => {
   console.error(`🙅 🚫 🙅 🚫 🙅 🚫 🙅 🚫 → ${err.message}`);
 });

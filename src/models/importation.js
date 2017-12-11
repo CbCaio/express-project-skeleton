@@ -1,9 +1,9 @@
 
 const mongoose = require('mongoose');
 
-mongoose.Promise = global.Promise;
+const Schema = mongoose.Schema;
 
-const importationSchema = new mongoose.Schema({
+const ImportationSchema = new Schema({
   uuid: {
     type: String,
     unique: true,
@@ -24,4 +24,4 @@ const importationSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Importation', importationSchema);
+module.exports = mongoose.model('Importation', ImportationSchema);

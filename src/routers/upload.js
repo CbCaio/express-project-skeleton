@@ -4,7 +4,7 @@ const importationService = require('../services/importationService');
 
 const router = new Router();
 
-router.post('/upload', uploadHandler.single('file'), (req, res) => {
+router.post('/upload', uploadHandler('local'), (req, res) => {
   if (req.file) {
     const fileFolder = req.file.destination.split('/');
     const uuid = fileFolder[fileFolder.length - 1];

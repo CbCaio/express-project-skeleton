@@ -7,6 +7,12 @@ const upload = require('./routers/upload');
 
 const app = new Express();
 
+const { mongoose } = require('./db/mongoose');
+
+mongoose.connection.on('error', (err) => {
+  console.error(`Error -> ${err.message}`);
+});
+
 const limiter = new RateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes 
   max: 5, // limit each IP to 100 requests per windowMs 

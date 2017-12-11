@@ -1,7 +1,7 @@
 // const { mongoose } = require('../db/mongoose');
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 
-const Importation = mongoose.model('Importation');
+const Importation = require('../models/importation');
 
 module.exports = {
   createImportation(uuid, fileLocation, type, userId) {

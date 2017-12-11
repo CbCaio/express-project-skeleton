@@ -1,6 +1,3 @@
-// const { mongoose } = require('../db/mongoose');
-//const mongoose = require('mongoose');
-
 const Importation = require('../models/importation');
 
 module.exports = {

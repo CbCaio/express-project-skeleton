@@ -24,7 +24,7 @@ const aws = multer({
   storage: multerS3({
     s3,
     bucket: helper.getNewfolder('my-uploads', 'aws'),
-    acl: 'public-read',
+    acl: 'private',
     metadata: (request, file, cb) => {
       cb(null, { fieldName: file.fieldname });
     },

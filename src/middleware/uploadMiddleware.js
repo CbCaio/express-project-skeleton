@@ -4,7 +4,7 @@ const helper = require('../utils/helper');
 const multerS3 = require('multer-s3');
 const { s3 } = require('../utils/awsSDK');
 
-const isvalidate = (folder) => {
+const isValid = (folder) => {
   fs.mkdirSync(folder, true);
 
   return folder;
@@ -13,7 +13,7 @@ const isvalidate = (folder) => {
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     const folder = helper.getNewfolder('my-uploads', 'local');
-    cb(null, isvalidate(folder));
+    cb(null, isValid(folder));
   },
   filename(req, file, cb) {
     cb(null, `${file.originalname}-${Date.now()}`);
@@ -38,7 +38,7 @@ const uploadHandlerLocal = multer({ storage });
 
 const uploadHandlerAws = multer({ aws });
 
-const uploadHandler = type => (req, res, next) => {
+const uploadMiddleware = type => (req, res, next) => {
   let upload;
   try {
     switch (type) {
@@ -55,4 +55,4 @@ const uploadHandler = type => (req, res, next) => {
   }
 };
 
-module.exports = uploadHandler;
+module.exports = uploadMiddleware;

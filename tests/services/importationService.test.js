@@ -1,6 +1,6 @@
-const createImportation = require('../../src/services/createImportation');
+const { ImportationRepository } = require('../../src/database/mongoose/repositories');
 
-const Importation = require('../../src/models/importation');
+const Importation = require('../../src/database/mongoose/models/Importation');
 
 describe('tests -> services -> createImportation', () => {
   it('It should save on dataBase', async () => {
@@ -20,7 +20,7 @@ describe('tests -> services -> createImportation', () => {
       _id: '5a30fe3d52b46f1a7ee4ab5c',
     }));
 
-    const result = await createImportation(object);
+    const result = await ImportationRepository.create(object);
 
     expect(Object.keys(result)).toEqual(expect.arrayContaining(['__v', 'uuid', 'userId', 'type', 'location', '_id']));
     expect(typeof result).toBe('object');

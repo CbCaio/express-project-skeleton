@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk');
-const { accessKeyId, secretAccessKey, region } = require('../config/environmentVariables').aws;
+const { accessKeyId, secretAccessKey, region } = require('../config/applicationConfig').aws;
 
 const config = new AWS.Config({
   accessKeyId, secretAccessKey, region,

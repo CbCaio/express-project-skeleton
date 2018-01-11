@@ -1,7 +1,7 @@
 const fs = require('fs');
 const winston = require('winston');
 const expressWinston = require('express-winston');
-const { environment } = require('./environmentVariables');
+const { environment } = require('./');
 const _ = require('lodash');
 
 const logDir = 'logs';

@@ -32,24 +32,42 @@ const aws = multer({
       cb(null, 'uploadedFile');
     },
   }),
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      return cb(new Error('Only image files are allowed!'));
+    }
+    return cb(null, true);
+  },
 });
 
-const uploadHandlerLocal = multer({ storage });
+const uploadHandlerLocal = () => multer({
+  storage,
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+      return cb(new Error('Only image files are allowed!'));
+    }
+    return cb(null, true);
+  } });
 
-const uploadHandlerAws = multer({ aws });
+const uploadHandlerAws = () => multer({ aws });
 
 const uploadMiddleware = type => (req, res, next) => {
   let upload;
   try {
     switch (type) {
       case aws:
-        upload = uploadHandlerAws;
+        upload = uploadHandlerAws();
         break;
       default:
-        upload = uploadHandlerLocal;
+        upload = uploadHandlerLocal();
         break;
     }
-    return upload.single('file')(req, res, next);
+    return upload.single('file')(req, res, (err) => {
+      if (err) {
+        next(err);
+      }
+      return next();
+    });
   } catch (e) {
     return next(e);
   }

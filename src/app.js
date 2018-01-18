@@ -4,6 +4,7 @@ const RateLimit = require('express-rate-limit');
 const healthCheckRouter = require('./routers/healthCheck');
 const loginRouter = require('./routers/login');
 const upload = require('./routers/upload');
+const errorHandler = require('./error-handler')();
 
 const app = new Express();
 
@@ -43,6 +44,36 @@ app.use(config.logger.errorLoggerRouter);
 
 // --- APPLICATION ERROR HANDLER ---
 
+app.use((err, req, res, next) => {
+  if (err instanceof errorHandler.HttpError) {
+    return next(err);
+  }
+
+  if (err instanceof errorHandler.NotFoundError) {
+    return next(err);
+  }
+
+  if (!(err instanceof Error)) {
+    const uncaughtError = new errorHandler.HttpError(500, 'Something went wrong');
+    uncaughtError.custom = err;
+    return next(uncaughtError);
+  }
+
+  let newError = null;
+
+  if (err.error && err.error.errors) {
+    newError = new errorHandler.HttpError(err.statusCode, err.message, err.error.errors);
+  }
+
+  if (!newError) {
+    newError = new errorHandler.HttpError(500, err.message);
+  }
+
+  newError.custom = err;
+  return next(newError);
+});
+
+app.use(errorHandler.errorHandlerMiddleware);
 // ------
 
 module.exports = app;

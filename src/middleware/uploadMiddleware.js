@@ -3,6 +3,7 @@ const fs = require('mkdir-recursive');
 const helper = require('../utils/helper');
 const multerS3 = require('multer-s3');
 const { s3 } = require('../utils/awsSDK');
+const { UnsupportedMediaTypeError } = require('../error-handler')();
 
 const isValid = (folder) => {
   fs.mkdirSync(folder, true);
@@ -34,7 +35,7 @@ const aws = multer({
   }),
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-      return cb(new Error('Only image files are allowed!'));
+      return cb(new UnsupportedMediaTypeError('this file isnt valid'));
     }
     return cb(null, true);
   },
@@ -44,7 +45,7 @@ const uploadHandlerLocal = () => multer({
   storage,
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-      return cb(new Error('Only image files are allowed!'));
+      return cb(new UnsupportedMediaTypeError('rtgregr'));
     }
     return cb(null, true);
   } });
@@ -64,7 +65,7 @@ const uploadMiddleware = type => (req, res, next) => {
     }
     return upload.single('file')(req, res, (err) => {
       if (err) {
-        next(err);
+        return next(err);
       }
       return next();
     });
